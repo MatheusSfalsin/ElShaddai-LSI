@@ -42,7 +42,7 @@ export const styles = StyleSheet.create({
   },
 
   iconBack: {
-    position: 'absolute',
+    // position: 'absolute',
     top: 5,
     left: 20,
     width: 30,

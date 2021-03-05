@@ -1,10 +1,11 @@
 import React, { Component, } from 'react';
 import PropTypes from 'prop-types'
 import { View, Text, TextInput, Keyboard, KeyboardAvoidingView, Platform, TouchableOpacity, Button } from 'react-native';
-// import Icon from 'react-native-vector-icons/FontAwesome5'
+import Icon from 'react-native-vector-icons/FontAwesome5'
 import ButtonPrimary from '../../components/Buttons/ButtonPrimary'
 import { styles } from './LogInStyles';
 import { Colors } from '../../utils/colors'
+import PrimaryInput from '../../components/Inputs/primaryInput'
 
 export class LogInEmail extends Component {
   // images = Images.logoCd
@@ -17,7 +18,7 @@ export class LogInEmail extends Component {
   static propTypes = {
     goBack: PropTypes.func,
     navigateToHome: PropTypes.func,
-    navigation: PropTypes.func
+    navigation: PropTypes.object
   }
 
   static defaultProps = {
@@ -57,7 +58,11 @@ export class LogInEmail extends Component {
           </View> */}
         </View>
 
-        <View style={[styles.bodyContainerCenter, { paddingBottom: keyBoardOpen ? 20 : 10 }]} >
+        <View style={[
+          styles.bodyContainerCenter,
+          { paddingBottom: keyBoardOpen ? 20 : 10 },
+          { height: '100%' }
+        ]} >
           <View style={styles.center}>
             <Text style={styles.TitleLogin}>Login</Text>
             <Text style={styles.textDescription}>
@@ -65,8 +70,7 @@ export class LogInEmail extends Component {
             </Text>
 
             <View style={[styles.ContainerInput, styles.center]}>
-              <TextInput
-                style={styles.Input}
+              <PrimaryInput
                 placeholderTextColor={Colors.gray}
                 placeholder="Email"
                 autoCapitalize="none"
@@ -77,14 +81,12 @@ export class LogInEmail extends Component {
             </View>
 
             <View style={[styles.ContainerInput, styles.center]}>
-              <TextInput
-                style={styles.Input}
+              <PrimaryInput
                 placeholderTextColor={Colors.gray}
-                placeholder="Senha"
+                placeholder="Senha "
                 autoCapitalize="none"
                 secureTextEntry={true}
                 maxLength={64}
-                textContentType="password"
                 onChangeText={value => this.setState({ password: value })}
               />
             </View>
@@ -101,17 +103,13 @@ export class LogInEmail extends Component {
 
             </View>
 
-            <View style={styles.absoluteButton}>
-              <ButtonPrimary
-                styledAdd={styles.signInButton}
-                label="PRÓXIMO"
-                // isLoading={isLoading}
-                // colorLoading={Colors.white}
-                onPress={() => this.props.navigation.navigate('HomeClient')}
-              />
-
-
-            </View>
+            <TouchableOpacity
+              style={styles.buttonSignUp}
+              onPress={() => this.props.navigation.navigate('SignUp')}
+            >
+              <Text style={styles.textButtonSignUp}>Cadastra-se</Text>
+              <Icon name="angle-right" size={24} color={Colors.primary} />
+            </TouchableOpacity>
           </View>
         </View>
       </KeyboardAvoidingView>

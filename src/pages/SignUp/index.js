@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { KeyboardAvoidingView, ScrollView, Text, TextInput, View } from 'react-native';
+import { KeyboardAvoidingView, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome5'
 import ButtonPrimary from '../../components/Buttons/ButtonPrimary';
 import { Colors } from '../../utils/colors';
 
@@ -18,9 +19,9 @@ const SignUp = () => {
 
     >
       <View style={[styles.ContainerHeader]} >
-        {/* <TouchableOpacity onPress={this.props.goBack} style={styles.iconBack}>
-          <Icon name="arrow-left" size={24} color="#828282" />
-        </TouchableOpacity> */}
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.iconBack}>
+          <Icon name="angle-left" size={30} color={Colors.primary} />
+        </TouchableOpacity>
         {/* <View style={[styles.logoContainer]} >
           <Image style={styles.imgLogo} source={this.images} />
         </View> */}
