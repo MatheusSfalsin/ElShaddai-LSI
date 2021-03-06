@@ -1,7 +1,6 @@
 import React, { Component, } from 'react';
 import PropTypes from 'prop-types'
 import { View, Text, TextInput, Keyboard, KeyboardAvoidingView, Platform, TouchableOpacity, Button } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome5'
 import ButtonPrimary from '../../components/Buttons/ButtonPrimary'
 import { styles } from './LogInStyles';
 import { Colors } from '../../utils/colors'
@@ -108,7 +107,12 @@ export class LogInEmail extends Component {
               onPress={() => this.props.navigation.navigate('SignUp')}
             >
               <Text style={styles.textButtonSignUp}>Cadastra-se</Text>
-              <Icon name="angle-right" size={24} color={Colors.primary} />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.buttonRecovery}
+              onPress={() => this.props.navigation.navigate('RecoveryPassword')}
+            >
+              <Text style={styles.textButtonSignUp}>Recuperar Senha</Text>
             </TouchableOpacity>
           </View>
         </View>

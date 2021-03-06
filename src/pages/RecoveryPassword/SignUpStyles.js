@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.screen,
     padding: 20,
-    paddingTop: 35,
+    paddingTop: 30,
   },
   googleImage: {
     resizeMode: 'contain',
@@ -32,7 +32,6 @@ export const styles = StyleSheet.create({
   bodyContainerCenter: {
     flexDirection: 'column',
     justifyContent: 'center',
-    height: '90%',
   },
 
   center: {
@@ -43,7 +42,7 @@ export const styles = StyleSheet.create({
   },
 
   iconBack: {
-    position: 'absolute',
+    // position: 'absolute',
     top: 5,
     left: 20,
     width: 30,
@@ -181,26 +180,14 @@ export const styles = StyleSheet.create({
     width: '100%',
     flex: 1,
   },
-  buttonSignUp: {
-    marginTop: 70,
-    flexDirection: 'row',
-    // alignItems: 'center',
-  },
-  buttonRecovery: {
-    // marginTop: 90,
-    flexDirection: 'row',
-    // alignItems: 'center',
-  },
-  textButtonSignUp: {
-    color: Colors.primary,
-    fontSize: 16,
-    marginRight: 10,
-  },
   absoluteButton: {
     marginTop: 20,
     flex: 1,
     width: '100%',
-    bottom: 0,
+    marginBottom: 30,
+    // bottom: 0,
+    // justifyContent: 'center',
+    // alignItems: 'center'
   },
 
   secondBottom: {

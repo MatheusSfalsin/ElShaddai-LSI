@@ -1,55 +1,18 @@
-import { CommonActions, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { Alert, KeyboardAvoidingView, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { KeyboardAvoidingView, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import ButtonPrimary from '../../components/Buttons/ButtonPrimary';
-import { getAccounts, setUserProperty, saveNewAccount } from '../../config/data';
 import { Colors } from '../../utils/colors';
 
 import { styles } from './SignUpStyles';
 
 const SignUp = () => {
   const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
+  const [newPassword, setNewPassword] = useState('')
+  const [newConfirmPassword, setNewConfirmPassword] = useState('')
 
   const navigation = useNavigation();
-  const handleCreateAccount = async () => {
-    if (!(email && password && confirmPassword)){
-      Alert.alert('Campos não preenchidos', 'Preencha todos dados...')
-      return     
-    }
-    if (password!==confirmPassword){
-      Alert.alert('Senhas não conferem', 'Digite novamente...')
-      setPassword('')
-      setConfirmPassword('')
-      return 
-    } 
-    const accounts = await getAccounts() 
-    const existAccount = accounts.findIndex(account => account.email===email)
-    if (existAccount >= 0){
-      Alert.alert('Conta existente', 'Email já utilizado...')
-      return
-    }
-    const id = Math.random().toString(36).substr(2, 9);
-    setUserProperty ({id, email, password})
-    await saveNewAccount ({id, email, password})
-
-    navigation.dispatch(
-      CommonActions.reset({
-        index: 1,
-        routes: [
-          { name: 'HomeClient' },     
-          {
-            name: 'HomeClient',
-          },
-        ],
-      })
-    );
-    
-  } 
-
-
   return (
     <ScrollView
       style={styles.container}
@@ -66,9 +29,9 @@ const SignUp = () => {
 
       <View style={[styles.bodyContainerCenter]} >
         <View style={styles.center}>
-          <Text style={styles.TitleLogin}>Cadastro</Text>
+          <Text style={styles.TitleLogin}>Recuperar senha</Text>
           <Text style={styles.textDescription}>
-            Digite seu email e senha para acessar o sistema...
+            Digite seu email e nova senha para recupera o acesso ao sistema...
           </Text>
 
           <View style={[styles.ContainerInput, styles.center]}>
@@ -87,7 +50,7 @@ const SignUp = () => {
             <TextInput
               style={styles.Input}
               placeholderTextColor={Colors.gray}
-              placeholder="Senha"
+              placeholder="Nova senha"
               autoCapitalize="none"
               secureTextEntry={true}
               maxLength={64}
@@ -100,7 +63,7 @@ const SignUp = () => {
             <TextInput
               style={styles.Input}
               placeholderTextColor={Colors.gray}
-              placeholder="Confirmar Senha"
+              placeholder="Confirmar nova senha"
               autoCapitalize="none"
               secureTextEntry={true}
               maxLength={64}
@@ -112,10 +75,10 @@ const SignUp = () => {
           <View style={styles.absoluteButton}>
             <ButtonPrimary
               styledAdd={styles.signInButton}
-              label="Cadastrar"
+              label="Alterar"
               // isLoading={isLoading}
               // colorLoading={Colors.white}
-              onPress={() => handleCreateAccount()}
+              onPress={() => navigation.goBack()}
             />
           </View>
         </View>

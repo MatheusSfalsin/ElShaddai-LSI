@@ -8,6 +8,8 @@ const appStack = createStackNavigator();
 import Login from './pages/Login'
 import HomeClient from './pages/HomeClient'
 import SignUp from './pages/SignUp'
+import RecoveryPassword from './pages/RecoveryPassword'
+
 
 export default function Routes () {
   return (// tem que vir por volta das rotas
@@ -16,6 +18,7 @@ export default function Routes () {
         <appStack.Screen name="Login" component={Login} />
         <appStack.Screen name="HomeClient" component={HomeClient} />
         <appStack.Screen name="SignUp" component={SignUp} />
+        <appStack.Screen name="RecoveryPassword" component={RecoveryPassword} />
       </appStack.Navigator>
     </NavigationContainer>
   )
