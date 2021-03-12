@@ -25,7 +25,7 @@ const ButtonPrimary = (props) => {
     borderTransparent,
     disabledButton
   } = styles
-  const labelToShow = (Platform.OS === 'ios') || notUpperCase ? label : label.toUpperCase()
+  // const labelToShow = (Platform.OS === 'ios') || notUpperCase ? label : label.toUpperCase()
   const styleDisabled = disabled ? disabledButton : {}
   return (
     <TouchableOpacity
@@ -41,7 +41,7 @@ const ButtonPrimary = (props) => {
             spinnerColor={colorLoading}
             spinnerSize="small"
           />
-          : <Text style={[text, textStyle]}>{labelToShow}</Text>
+          : <Text style={[text, textStyle]}>{label}</Text>
       }
     </TouchableOpacity>
   )

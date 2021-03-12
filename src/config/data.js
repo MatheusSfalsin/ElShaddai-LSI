@@ -1,5 +1,4 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import Admin from '../../Admin.json';
 
 export async function getUser () {
   let userJson
@@ -42,13 +41,12 @@ export async function logOutUser () {
 
 export async function getAccounts () {
   let userJson
-  const employees = Admin.funcionarios
   await AsyncStorage.getItem('Accounts')
     .then((accounts) => {
       if (accounts) {
-        userJson = JSON.parse([...accounts, ...employees])
+        userJson = JSON.parse(accounts)
       } else {
-        userJson = [...employees]
+        userJson = []
       }
     }).catch(() => {
       userJson = []
@@ -59,11 +57,10 @@ export async function getAccounts () {
 
 export async function saveNewAccount (account) {
   try {
-    const employees = Admin.funcionarios
     const accounts = await getAccounts()
     await AsyncStorage.setItem(
       'Accounts',
-      JSON.stringify([...employees, ...accounts, account])
+      JSON.stringify([...accounts, ...account])
     )
   } catch (err) {
     throw err

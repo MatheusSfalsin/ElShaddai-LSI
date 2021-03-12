@@ -39,8 +39,7 @@ const ListTravels = ({ navigation, situation }) => {
                 borderWidth: 1,
                 borderColor: Colors.gray6,
                 borderRadius: 20,
-                marginTop: 15,
-                marginBottom: 30,
+                marginTop: 20,
                 flexDirection: 'row'
               }}>
               <View style={{ flex: 1 }}>

@@ -6,9 +6,11 @@ import { createStackNavigator } from '@react-navigation/stack'
 const appStack = createStackNavigator();
 
 import Login from './pages/Login'
-import HomeClient from './pages/HomeClient'
 import SignUp from './pages/SignUp'
 import RecoveryPassword from './pages/RecoveryPassword'
+
+import HomeClient from './pages/HomeClient'
+import HomeEmployees from './pages/HomeEmployees'
 
 
 export default function Routes () {
@@ -20,6 +22,7 @@ export default function Routes () {
         <appStack.Screen name="RecoveryPassword" component={RecoveryPassword} />
 
         <appStack.Screen name="HomeClient" component={HomeClient} />
+        <appStack.Screen name="HomeEmployees" component={HomeEmployees} />
       </appStack.Navigator>
     </NavigationContainer>
   )

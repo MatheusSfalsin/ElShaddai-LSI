@@ -1,14 +1,18 @@
 {
   "funcionarios": [
     {
+      "id": "1",
       "name": "João",
       "type": "menager",
-      "email": "joao@gmail.com"
+      "email": "joao@gmail.com",
+      "password": "joao123"
     },
     {
+      "id": "2",
       "name": "Paulo",
       "type": "attendant",
-      "email": "paulo@gmail.com"
+      "email": "paulo@gmail.com",
+      "password": "paulo123"
     }
   ]
 }

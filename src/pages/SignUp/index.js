@@ -34,7 +34,7 @@ const SignUp = () => {
     }
     const id = Math.random().toString(36).substr(2, 9);
     setUserProperty({ id, email, password })
-    await saveNewAccount({ id, email, password })
+    await saveNewAccount([{ id, email, password }])
 
     navigation.dispatch(
       CommonActions.reset({

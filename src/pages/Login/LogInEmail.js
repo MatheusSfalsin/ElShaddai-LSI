@@ -19,6 +19,8 @@ export class LogInEmail extends Component {
   static propTypes = {
     goBack: PropTypes.func,
     navigateToHome: PropTypes.func,
+    goToHomeEmployees: PropTypes.func,
+    goToHomeCliente: PropTypes.func,
     navigation: PropTypes.object,
     user: PropTypes.object
   }
@@ -26,6 +28,8 @@ export class LogInEmail extends Component {
   static defaultProps = {
     goBack: () => { },
     navigateToHome: () => { },
+    goToHomeEmployees: () => { },
+    goToHomeCliente: () => { },
     navigation: {},
     user: {},
   }
@@ -45,6 +49,7 @@ export class LogInEmail extends Component {
 
   handleLoginUser = async () => {
     const { email, password } = this.state
+    const { goToHomeEmployees, goToHomeCliente } = this.props
     if (!email && !password) {
       Alert.alert('Dados inválidos', 'Preecha seu email e senha...')
       return
@@ -65,14 +70,12 @@ export class LogInEmail extends Component {
 
     await setUserProperty(accountUser[0])
     this.setState({ email: '', password: '' })
-    this.props.navigation.dispatch(
-      CommonActions.reset({
-        index: 1,
-        routes: [
-          { name: 'HomeClient' },
-        ],
-      })
-    );
+
+    if (accountUser[0].type) {
+      return goToHomeEmployees()
+    }
+
+    return goToHomeCliente()
   }
 
   render () {
