@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-community/async-storage';
+import Admin from '../../Admin.json';
 
 export async function getUser () {
   let userJson
@@ -12,48 +13,59 @@ export async function getUser () {
     }).catch((err) => {
       userJson = { err }
     })
-    
+
   return userJson
 }
 
-export function setUserProperty (property) {
-  return async () => {
-    try {
-      const user = await getUser()
-      await AsyncStorage.setItem(
-        'profile',
-        JSON.stringify({ ...user, ...property })
-      )
-    } catch (err) {
-      throw err
-    }
+export async function setUserProperty (property) {
+  try {
+    const user = await getUser()
+    await AsyncStorage.setItem(
+      'user',
+      JSON.stringify({ ...user, ...property })
+    )
+  } catch (err) {
+    throw err
+  }
+}
+
+export async function logOutUser () {
+  try {
+    await AsyncStorage.setItem(
+      'user',
+      JSON.stringify({})
+    )
+  } catch (err) {
+    throw err
   }
 }
 
 export async function getAccounts () {
   let userJson
+  const employees = Admin.funcionarios
   await AsyncStorage.getItem('Accounts')
     .then((accounts) => {
       if (accounts) {
-        userJson = JSON.parse(accounts)
+        userJson = JSON.parse([...accounts, ...employees])
       } else {
-        userJson = []
+        userJson = [...employees]
       }
     }).catch(() => {
       userJson = []
     })
-    
+
   return userJson
 }
 
 export async function saveNewAccount (account) {
-    try {
-      const accounts = await getAccounts()
-      await AsyncStorage.setItem(
-        'Accounts',
-        JSON.stringify([ ...accounts, account ])
-      )
-    } catch (err) {
-      throw err
-    }
+  try {
+    const employees = Admin.funcionarios
+    const accounts = await getAccounts()
+    await AsyncStorage.setItem(
+      'Accounts',
+      JSON.stringify([...employees, ...accounts, account])
+    )
+  } catch (err) {
+    throw err
+  }
 }

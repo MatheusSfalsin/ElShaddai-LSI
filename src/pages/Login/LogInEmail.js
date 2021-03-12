@@ -1,10 +1,12 @@
 import React, { Component, } from 'react';
 import PropTypes from 'prop-types'
-import { View, Text, TextInput, Keyboard, KeyboardAvoidingView, Platform, TouchableOpacity, Button } from 'react-native';
+import { CommonActions } from '@react-navigation/native';
+import { View, Text, TextInput, Keyboard, KeyboardAvoidingView, Platform, TouchableOpacity, Button, Alert } from 'react-native';
 import ButtonPrimary from '../../components/Buttons/ButtonPrimary'
 import { styles } from './LogInStyles';
 import { Colors } from '../../utils/colors'
 import PrimaryInput from '../../components/Inputs/primaryInput'
+import { getAccounts, setUserProperty } from '../../config/data';
 
 export class LogInEmail extends Component {
   // images = Images.logoCd
@@ -17,13 +19,15 @@ export class LogInEmail extends Component {
   static propTypes = {
     goBack: PropTypes.func,
     navigateToHome: PropTypes.func,
-    navigation: PropTypes.object
+    navigation: PropTypes.object,
+    user: PropTypes.object
   }
 
   static defaultProps = {
     goBack: () => { },
     navigateToHome: () => { },
-    navigation: () => { },
+    navigation: {},
+    user: {},
   }
 
   keyboardDidShow = () => {
@@ -39,6 +43,37 @@ export class LogInEmail extends Component {
     Keyboard.addListener('keyboardDidHide', this.keyboardDidHide);
   }
 
+  handleLoginUser = async () => {
+    const { email, password } = this.state
+    if (!email && !password) {
+      Alert.alert('Dados inválidos', 'Preecha seu email e senha...')
+      return
+    }
+
+    const accounts = await getAccounts()
+    const accountUser = accounts.filter(account => {
+      const existEmail = account.email === email
+      const passwordValid = account.password === password
+      return (existEmail && passwordValid)
+    })
+
+    if (accountUser.length === 0) {
+      Alert.alert('Dados inválidos', 'Email ou senha inválidos')
+      this.setState({ password: '' })
+      return
+    }
+
+    await setUserProperty(accountUser[0])
+    this.setState({ email: '', password: '' })
+    this.props.navigation.dispatch(
+      CommonActions.reset({
+        index: 1,
+        routes: [
+          { name: 'HomeClient' },
+        ],
+      })
+    );
+  }
 
   render () {
     const { keyBoardOpen, email } = this.state;
@@ -59,11 +94,14 @@ export class LogInEmail extends Component {
 
         <View style={[
           styles.bodyContainerCenter,
-          { paddingBottom: keyBoardOpen ? 20 : 10 },
           { height: '100%' }
         ]} >
           <View style={styles.center}>
-            <Text style={styles.TitleLogin}>Login</Text>
+            {
+              !keyBoardOpen &&
+              <Text style={styles.TitleLogin}>Login</Text>
+            }
+
             <Text style={styles.textDescription}>
               Digite seu email e senha para acessar o sistema...
             </Text>
@@ -93,10 +131,10 @@ export class LogInEmail extends Component {
             <View style={styles.absoluteButton}>
               <ButtonPrimary
                 styledAdd={styles.signInButton}
-                label="PRÓXIMO"
+                label="Entrar"
                 // isLoading={isLoading}
                 // colorLoading={Colors.white}
-                onPress={() => this.props.navigation.navigate('HomeClient')}
+                onPress={() => this.handleLoginUser()}
               />
 
 

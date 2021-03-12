@@ -184,16 +184,13 @@ export const styles = StyleSheet.create({
   buttonSignUp: {
     marginTop: 70,
     flexDirection: 'row',
-    // alignItems: 'center',
   },
   buttonRecovery: {
-    // marginTop: 90,
     flexDirection: 'row',
-    // alignItems: 'center',
   },
   textButtonSignUp: {
     color: Colors.primary,
-    fontSize: 16,
+    fontSize: 14,
     marginRight: 10,
   },
   absoluteButton: {

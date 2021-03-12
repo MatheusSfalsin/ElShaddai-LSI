@@ -1,0 +1,14 @@
+{
+  "funcionarios": [
+    {
+      "name": "João",
+      "type": "menager",
+      "email": "joao@gmail.com"
+    },
+    {
+      "name": "Paulo",
+      "type": "attendant",
+      "email": "paulo@gmail.com"
+    }
+  ]
+}

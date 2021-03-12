@@ -16,9 +16,10 @@ export default function Routes () {
     <NavigationContainer>
       <appStack.Navigator screenOptions={{ headerShown: false }}>
         <appStack.Screen name="Login" component={Login} />
-        <appStack.Screen name="HomeClient" component={HomeClient} />
         <appStack.Screen name="SignUp" component={SignUp} />
         <appStack.Screen name="RecoveryPassword" component={RecoveryPassword} />
+
+        <appStack.Screen name="HomeClient" component={HomeClient} />
       </appStack.Navigator>
     </NavigationContainer>
   )

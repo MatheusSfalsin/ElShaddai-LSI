@@ -5,7 +5,7 @@ const isIOS = Platform.OS === 'ios'
 export const Colors = {
   // APP COLORS
   primary: '#00a859',
-  primaryLight: '#56CCF2',
+  primaryLight: '#15c850',
   primaryDark: '#56CCF2',
   special: '#1D87FF',
   primaryGradient: {
