@@ -9,12 +9,11 @@ import { Colors } from '../../utils/colors';
 
 import { styles } from './styles';
 
-const ListTravels = ({ navigation, situation }) => {
+const ListTravels = ({ navigation, situation, isClient = true }) => {
   const [origem, setOrigem] = useState('')
   const [destiny, setDestiny] = useState('')
   const [date, setDate] = useState('')
 
-  const isClient = true
   const data = [1, 2, 3, 4, 5]
   return (
     // <View style={styles.container}>
@@ -45,14 +44,14 @@ const ListTravels = ({ navigation, situation }) => {
               <View style={{ flex: 1 }}>
                 <Text style={styles.textItemTravel} numberOfLines={1}>{`Saída: 07:00 São Paulo -SP`}</Text>
                 <Text style={styles.textItemTravel} numberOfLines={1}>{`Chegada: 12:00 Rio de Janeiroooo - RJ`}</Text>
-                <View>
+                <View style={!isClient && { flexDirection: 'row' }}>
                   <Text style={styles.textSmallItemTravel} numberOfLines={1}>{`Onibus MVG-1053`}</Text>
-                  {!isClient && <Text style={styles.textSmallItemTravell} numberOfLines={1}>{`Onibus: MVG-1053`}</Text>}
-                  {!isClient && <Text style={styles.textSmallItemTravell} numberOfLines={1}>{`Passagerios: 48`}</Text>}
+                  {!isClient && <Text style={styles.textSmallItemTravel}>{`R$ 120,00`}</Text>}
+                  {!isClient && <Text style={styles.textSmallItemTravel} numberOfLines={1}>{`Passagerios: 48`}</Text>}
                 </View>
-              </View>
+                {!!situation && <Text style={styles.textSituation} numberOfLines={1}>{`Em Andamento`}</Text>}
 
-              {!!situation && <Text numberOfLines={1}>{`Em Andamento`}</Text>}
+              </View>
 
               {isClient &&
                 <View style={{

@@ -1,4 +1,4 @@
-import { CommonActions } from '@react-navigation/native';
+import { CommonActions, useNavigation } from '@react-navigation/native';
 import React, { useState, useEffect } from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import ButtonPrimary from '../../components/Buttons/ButtonPrimary';
@@ -14,6 +14,7 @@ import { styles } from './styles';
 
 const HomeEmployees = ({ navigation }) => {
   const [user, setUser] = useState({})
+
   useEffect(() => {
     async function getUserLogin () {
       const user = await getUser()
@@ -23,7 +24,8 @@ const HomeEmployees = ({ navigation }) => {
     getUserLogin()
   }, [])
 
-  const typeEmployee = user.type === 'menager' ? 'Gerente' : 'Atendente'
+  const isMenager = user.type === 'menager'
+  const typeEmployee = isMenager ? 'Gerente' : 'Atendente'
 
   return (
     <View
@@ -39,26 +41,48 @@ const HomeEmployees = ({ navigation }) => {
           text={`${typeEmployee}\n${user.name || ''}`}
         />
 
-        {/* <Text style={{ color: Colors.description, textAlign: 'center', marginTop: 15 }}>
-          {'Busque a cima para obter\n opções de Viagem'}
-        </Text> */}
-
         <View style={styles.buttonPrimary}>
-          <ButtonPrimary
-            label="Criar uma viagem"
-            onPress={() => { }}
-            styleAdd={{ marginTop: 6 }}
-          />
+          {
+            isMenager &&
+            <ButtonPrimary
+              label="Criar uma viagem"
+              onPress={() => { }}
+              styleAdd={{ marginTop: 6 }}
+            />
+          }
+
           <ButtonPrimary
             label="Viagens"
-            onPress={() => { }}
+            onPress={() => navigation.push('Travels')}
             styleAdd={{ marginTop: 6 }}
           />
-          <ButtonPrimary
-            label="Relatórios"
-            onPress={() => { }}
-            styleAdd={{ marginTop: 6 }}
-          />
+
+          {
+            isMenager &&
+            <ButtonPrimary
+              label="Relatórios"
+              onPress={() => { }}
+              styleAdd={{ marginTop: 6 }}
+            />
+          }
+
+          {
+            isMenager &&
+            <ButtonPrimary
+              label="Criar ônibus"
+              onPress={() => navigation.push('CreateBus')}
+              styleAdd={{ marginTop: 6 }}
+            />
+          }
+
+          {
+            isMenager &&
+            <ButtonPrimary
+              label="Criar Motorista"
+              onPress={() => { }}
+              styleAdd={{ marginTop: 6 }}
+            />
+          }
         </View>
 
 

@@ -9,6 +9,7 @@ import { logOutUser } from '../../../config/data';
 const HeaderPrimary = ({
   withLogOut,
   withBackground,
+  withGoBack
 }) => {
   const navigation = useNavigation();
 
@@ -40,7 +41,6 @@ const HeaderPrimary = ({
     );
   }
 
-
   return (
     <View style={[
       styles.container,
@@ -52,6 +52,16 @@ const HeaderPrimary = ({
           style={[styles.leftAbsolute, styles.buttonLogOut]}
         >
           <Text style={styles.textLogOut}>Sair</Text>
+        </TouchableOpacity>
+      }
+
+      {
+        withGoBack &&
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={[styles.leftAbsolute, { left: 25, top: 15 }]}
+        >
+          <Icon name="angle-left" size={30} color={Colors.primary} />
         </TouchableOpacity>
       }
 

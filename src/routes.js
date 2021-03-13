@@ -11,6 +11,8 @@ import RecoveryPassword from './pages/RecoveryPassword'
 
 import HomeClient from './pages/HomeClient'
 import HomeEmployees from './pages/HomeEmployees'
+import CreateBus from './pages/CreateBus'
+import Travels from './pages/Travels'
 
 
 export default function Routes () {
@@ -23,6 +25,8 @@ export default function Routes () {
 
         <appStack.Screen name="HomeClient" component={HomeClient} />
         <appStack.Screen name="HomeEmployees" component={HomeEmployees} />
+        <appStack.Screen name="CreateBus" component={CreateBus} />
+        <appStack.Screen name="Travels" component={Travels} />
       </appStack.Navigator>
     </NavigationContainer>
   )
