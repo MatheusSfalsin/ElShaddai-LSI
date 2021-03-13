@@ -79,7 +79,7 @@ const HomeEmployees = ({ navigation }) => {
             isMenager &&
             <ButtonPrimary
               label="Criar Motorista"
-              onPress={() => { }}
+              onPress={() => navigation.push('CreateDriver')}
               styleAdd={{ marginTop: 6 }}
             />
           }

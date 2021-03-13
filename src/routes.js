@@ -13,6 +13,7 @@ import HomeClient from './pages/HomeClient'
 import HomeEmployees from './pages/HomeEmployees'
 import CreateBus from './pages/CreateBus'
 import Travels from './pages/Travels'
+import CreateDriver from './pages/CreateDriver';
 
 
 export default function Routes () {
@@ -26,6 +27,7 @@ export default function Routes () {
         <appStack.Screen name="HomeClient" component={HomeClient} />
         <appStack.Screen name="HomeEmployees" component={HomeEmployees} />
         <appStack.Screen name="CreateBus" component={CreateBus} />
+        <appStack.Screen name="CreateDriver" component={CreateDriver} />
         <appStack.Screen name="Travels" component={Travels} />
       </appStack.Navigator>
     </NavigationContainer>
