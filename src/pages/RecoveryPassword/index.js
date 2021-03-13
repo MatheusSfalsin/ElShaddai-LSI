@@ -1,9 +1,10 @@
-import { useNavigation } from '@react-navigation/native';
+import { CommonActions, useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { KeyboardAvoidingView, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, KeyboardAvoidingView, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import ButtonPrimary from '../../components/Buttons/ButtonPrimary';
 import { Colors } from '../../utils/colors';
+import {alterateAccount, getAccounts} from '../../config/data';
 
 import { styles } from './SignUpStyles';
 
@@ -13,6 +14,44 @@ const SignUp = () => {
   const [newConfirmPassword, setNewConfirmPassword] = useState('')
 
   const navigation = useNavigation();
+
+    const handleRecoveryPassword = async () => {
+      if (!(email && newPassword && newConfirmPassword)) {
+        Alert.alert('Campos não preenchidos', 'Preencha todos dados...')
+        return
+      }
+      if (newPassword !== newConfirmPassword) {
+        Alert.alert('Senhas não conferem', 'Digite novamente...')
+        setNewPassword('')
+        setNewConfirmPassword('')
+        return
+      }
+
+      const accounts = await getAccounts()
+      const existAccount = accounts.findIndex(account => account.email === email)
+      if (existAccount < 0) {
+        Alert.alert('Erro no aplicativo', 'Email ou senha incorretos...')
+        return
+      }
+      const removeAccount = accounts.filter(account => account.email !== email)
+
+      const id = Math.random().toString(36).substr(2, 9);
+      await alterateAccount([...removeAccount,{ id, email, password: newPassword }])
+
+  
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 1,
+          routes: [
+            { name: 'Login' },
+            {
+              name: 'Login',
+            },
+          ],
+        })
+      );
+       
+    }
   return (
     <ScrollView
       style={styles.container}
@@ -55,7 +94,7 @@ const SignUp = () => {
               secureTextEntry={true}
               maxLength={64}
               textContentType="password"
-              onChangeText={value => setPassword(value)}
+              onChangeText={value => setNewPassword(value)}
             />
           </View>
 
@@ -68,7 +107,7 @@ const SignUp = () => {
               secureTextEntry={true}
               maxLength={64}
               textContentType="password"
-              onChangeText={value => setConfirmPassword(value)}
+              onChangeText={value => setNewConfirmPassword(value)}
             />
           </View>
 
@@ -78,7 +117,7 @@ const SignUp = () => {
               label="Alterar"
               // isLoading={isLoading}
               // colorLoading={Colors.white}
-              onPress={() => navigation.goBack()}
+              onPress={() => handleRecoveryPassword()}
             />
           </View>
         </View>

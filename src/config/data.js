@@ -66,3 +66,13 @@ export async function saveNewAccount (account) {
     throw err
   }
 }
+export async function alterateAccount (accounts) {
+  try {
+    await AsyncStorage.setItem(
+      'Accounts',
+      JSON.stringify([...accounts])
+    )
+  } catch (err) {
+    throw err
+  }
+}
