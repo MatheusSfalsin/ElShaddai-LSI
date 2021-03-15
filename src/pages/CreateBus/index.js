@@ -11,11 +11,11 @@ import { styles } from './styles';
 
 const CreateBus = ({ navigation }) => {
   const [model, setModel] = useState('')
-  const [numberSeats, setNumberSeats] = useState(0)
+  const [numberSeats, setNumberSeats] = useState('')
   const [plate, setPlate] = useState('')
   const [year, setYear] = useState('')
 
-  const createBus = () => {
+  const handleCreateBus = () => {
     if (!(model && numberSeats && plate && year)) {
       Alert.alert('Campos não preenchidos', 'Preencha todos dados...')
       return
@@ -28,7 +28,7 @@ const CreateBus = ({ navigation }) => {
   }
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} keyboardShouldPersistTaps="handled">
       <HeaderPrimary withGoBack />
       <View style={styles.content}>
         <LabelAndLine
@@ -44,6 +44,7 @@ const CreateBus = ({ navigation }) => {
             onChangeText={(text) => setModel(text)}
             styleInput={{ fontSize: 16 }}
             label="Modelo"
+            valueInput={model}
           />
 
           <InputWithLabel
@@ -54,11 +55,17 @@ const CreateBus = ({ navigation }) => {
             maxLength={3}
             keyboardType="numeric"
             label="Nº Assentos"
+            valueInput={numberSeats}
           />
 
           <View style={styles.inputInRow}>
             <InputWithLabel
-              placeholder="Ex: MFD-1111"
+              placeholder="Ex: AAA-0000"
+              hasMaskInput
+              typeMask="custom"
+              optionsMask={{
+                mask: 'AAA-9999'
+              }}
               placeholderTextColor={Colors.gray}
               onChangeText={(text) => setPlate(text)}
               autoCapitalize="characters"
@@ -66,6 +73,7 @@ const CreateBus = ({ navigation }) => {
               styleContainer={{ marginRight: 10, }}
               maxLength={8}
               label="Placa"
+              valueInput={plate}
             />
 
             <InputWithLabel
@@ -77,6 +85,7 @@ const CreateBus = ({ navigation }) => {
               keyboardType="numeric"
               maxLength={4}
               label="Ano"
+              valueInput={year}
             />
           </View>
 
@@ -85,7 +94,7 @@ const CreateBus = ({ navigation }) => {
               activeOpacity={0.8}
               label="Cadastrar ônibus"
               colorIcon={Colors.white}
-              onPress={() => createBus()}
+              onPress={() => handleCreateBus()}
             />
           </View>
         </View>

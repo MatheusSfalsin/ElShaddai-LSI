@@ -46,14 +46,14 @@ const HomeEmployees = ({ navigation }) => {
             isMenager &&
             <ButtonPrimary
               label="Criar uma viagem"
-              onPress={() => { }}
+              onPress={() => navigation.push('CreateTravel')}
               styleAdd={{ marginTop: 6 }}
             />
           }
 
           <ButtonPrimary
             label="Viagens"
-            onPress={() => navigation.push('Travels')}
+            onPress={() => navigation.push('Travels', { isMenager })}
             styleAdd={{ marginTop: 6 }}
           />
 

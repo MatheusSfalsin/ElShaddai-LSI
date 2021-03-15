@@ -6,6 +6,24 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.screen
   },
+  contentTravel: {
+    flex: 1,
+    marginHorizontal: 12,
+    padding: 15,
+    borderWidth: 1,
+    borderColor: Colors.condensed,
+    borderRadius: 20,
+    marginTop: 20,
+    flexDirection: 'row'
+  },
+  viewPriceCliente: {
+    paddingLeft: 15,
+    borderLeftWidth: 1,
+    borderLeftWidth: 2,
+    borderColor: Colors.condensed,
+    marginLeft: 12,
+    justifyContent: 'center'
+  },
   textItemTravel: {
     color: Colors.gray2,
     fontSize: 14,

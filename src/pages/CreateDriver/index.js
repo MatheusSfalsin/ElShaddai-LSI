@@ -16,7 +16,7 @@ const CreateDriver = ({ navigation }) => {
   const [driverAddress, setDriverAddress] = useState('')
   const [driverCnh, setDriverCnh] = useState('')
 
-  const CreateDriver = () => {
+  const handleCreateDriver = () => {
     if (!(driverName && driverNumber && driverRg && driverAddress && driverCnh)) {
       Alert.alert('Campos não preenchidos', 'Preencha todos dados...')
       return
@@ -29,7 +29,7 @@ const CreateDriver = ({ navigation }) => {
   }
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} keyboardShouldPersistTaps="handled">
       <HeaderPrimary withGoBack />
       <View style={styles.content}>
         <LabelAndLine
@@ -45,29 +45,44 @@ const CreateDriver = ({ navigation }) => {
             onChangeText={(text) => setDriverName(text)}
             styleInput={{ fontSize: 16 }}
             label="Nome completo"
+            autoCapitalize="words"
+            valueInput={driverName}
           />
 
           <InputWithLabel
-            placeholder="Ex: 27 91111 1111"
+            placeholder="(00) 00000-0000"
+            hasMaskInput
+            typeMask="cel-phone"
+            optionsMask={{
+              maskType: 'BRL',
+              withDDD: true,
+              dddMask: '(99) '
+            }}
             placeholderTextColor={Colors.gray}
-            onChangeText={(text) => setDriverNumber(Number(text))}
+            onChangeText={(text) => setDriverNumber(text)}
             styleInput={{ fontSize: 16 }}
             maxLength={13}
             keyboardType="numeric"
             label="Telefone"
+            valueInput={driverNumber}
           />
 
           <InputWithLabel
-            placeholder="Ex: 1234-567"
+            placeholder="00.000.000-0"
+            hasMaskInput
+            typeMask="custom"
+            optionsMask={{
+              mask: '99.999.999-9'
+            }}
             placeholderTextColor={Colors.gray}
-            onChangeText={(text) => setDriverRg(Number(text))}
+            onChangeText={(text) => setDriverRg(text)}
             styleInput={{ fontSize: 16 }}
             maxLength={8}
             keyboardType="numeric"
             label="RG"
+            valueInput={driverRg}
           />
 
-       
           <View style={styles.inputInRow}>
             <InputWithLabel
               placeholder="Ex: Rua Rosa"
@@ -77,17 +92,19 @@ const CreateDriver = ({ navigation }) => {
               styleInput={{ fontSize: 16, }}
               styleContainer={{ marginRight: 10, }}
               label="Endereço"
+              valueInput={driverAddress}
             />
 
             <InputWithLabel
-              placeholder="Ex: 11111111111"
+              placeholder="00000000000"
               placeholderTextColor={Colors.gray}
               onChangeText={(text) => setDriverCnh(text)}
               styleInput={{ fontSize: 16 }}
               styleContainer={{ marginLeft: 10 }}
               keyboardType="numeric"
-              maxLength={4}
+              maxLength={11}
               label="CNH"
+              valueInput={driverCnh}
             />
           </View>
 
@@ -96,10 +113,10 @@ const CreateDriver = ({ navigation }) => {
               activeOpacity={0.8}
               label="Cadastrar motorista"
               colorIcon={Colors.white}
-              onPress={() => CreateDriver()}
+              onPress={() => handleCreateDriver()}
             />
           </View>
-          
+
         </View>
       </View>
     </ScrollView>

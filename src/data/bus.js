@@ -1,19 +1,19 @@
 import AsyncStorage from "@react-native-community/async-storage"
 
 export async function getBuses () {
-  let userJson
+  let busJson
   await AsyncStorage.getItem('bus')
     .then((buses) => {
       if (buses) {
-        userJson = JSON.parse(buses)
+        busJson = JSON.parse(buses)
       } else {
-        userJson = []
+        busJson = []
       }
     }).catch(() => {
-      userJson = []
+      busJson = []
     })
 
-  return userJson
+  return busJson
 }
 
 export async function saveNewBus (bus) {

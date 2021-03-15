@@ -1,20 +1,42 @@
 import { CommonActions } from '@react-navigation/native';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import ButtonPrimaryWithIcon from '../../components/Buttons/ButtonPrimaryWithIcon';
 import HeaderPrimary from '../../components/Headers/HeaderPrimary';
 import InputWithICon from '../../components/Inputs/InputWithICon';
 import LabelAndLine from '../../components/Labels/LabelAndLine';
+import { getTravels } from '../../data/travel';
 import { Colors } from '../../utils/colors';
+import FormatValueMoney from '../../utils/formatValueMoney';
 
 import { styles } from './styles';
 
-const ListTravels = ({ navigation, situation, isClient = true }) => {
-  const [origem, setOrigem] = useState('')
-  const [destiny, setDestiny] = useState('')
-  const [date, setDate] = useState('')
+const ListTravels = ({
+  navigation,
+  situation,
+  isClient = true,
+  onPressInTravel = () => { },
+  idTravelSelected = ''
+}) => {
+  const [travels, setTravels] = useState([])
 
-  const data = [1, 2, 3, 4, 5]
+  useEffect(() => {
+    async function getData () {
+      const travels = await getTravels()
+      const formTravels = travels.map(travel => {
+        const { markedSeats = [], price = 0 } = travel
+        return {
+          ...travel,
+          lengthMarkedSeats: markedSeats.length,
+          priceFormat: FormatValueMoney(Number(price))
+        }
+      })
+      setTravels(formTravels)
+    }
+
+    getData()
+  }, [])
+
   return (
     // <View style={styles.container}>
     //   <HeaderPrimary withBackground />
@@ -27,45 +49,60 @@ const ListTravels = ({ navigation, situation, isClient = true }) => {
     // </View>
     <>
       {
-        data.map((item, index) => {
+        travels.map((travel, index) => {
+          const selected = travel.id === idTravelSelected
           return (
-            <View
+            <TouchableOpacity
               key={index}
-              style={{
-                flex: 1,
-                marginHorizontal: 12,
-                padding: 15,
-                borderWidth: 1,
-                borderColor: Colors.gray6,
-                borderRadius: 20,
-                marginTop: 20,
-                flexDirection: 'row'
-              }}>
+              activeOpacity={0.7}
+              onPress={() => onPressInTravel(travel.id)}
+              style={[styles.contentTravel, selected && { backgroundColor: Colors.condensed }]}
+            >
               <View style={{ flex: 1 }}>
-                <Text style={styles.textItemTravel} numberOfLines={1}>{`Saída: 07:00 São Paulo -SP`}</Text>
-                <Text style={styles.textItemTravel} numberOfLines={1}>{`Chegada: 12:00 Rio de Janeiroooo - RJ`}</Text>
+                <Text style={styles.textItemTravel} numberOfLines={1}>
+                  {`Saída: ${travel.timeOrigin} - ${travel.origin}`}
+                </Text>
+
+                <Text style={styles.textItemTravel} numberOfLines={1}>
+                  {`Chegada: ${travel.timeDestiny} - ${travel.destiny}`}
+                </Text>
+
                 <View style={!isClient && { flexDirection: 'row' }}>
-                  <Text style={styles.textSmallItemTravel} numberOfLines={1}>{`Onibus MVG-1053`}</Text>
-                  {!isClient && <Text style={styles.textSmallItemTravel}>{`R$ 120,00`}</Text>}
-                  {!isClient && <Text style={styles.textSmallItemTravel} numberOfLines={1}>{`Passagerios: 48`}</Text>}
+                  <Text style={styles.textSmallItemTravel} numberOfLines={1}>
+                    {`Ônibus: ${travel.bus.plate}(${travel.bus.numberSeats})`}
+                  </Text>
+
+                  {
+                    !isClient &&
+                    <Text style={styles.textSmallItemTravel}>
+                      {travel.priceFormat}
+                    </Text>
+                  }
+
+                  {
+                    !isClient &&
+                    <Text style={styles.textSmallItemTravel} numberOfLines={1}>
+                      {`Passagerios: ${travel.lengthMarkedSeats}`}
+                    </Text>
+                  }
+
                 </View>
-                {!!situation && <Text style={styles.textSituation} numberOfLines={1}>{`Em Andamento`}</Text>}
+
+                {
+                  !!situation &&
+                  <Text style={styles.textSituation} numberOfLines={1}>
+                    {`Em Andamento`}
+                  </Text>
+                }
 
               </View>
 
               {isClient &&
-                <View style={{
-                  paddingLeft: 15,
-                  borderLeftWidth: 1,
-                  borderLeftWidth: 2,
-                  borderColor: Colors.condensed,
-                  marginLeft: 12,
-                  justifyContent: 'center'
-                }}>
-                  <Text style={styles.textItemPrice}>{`R$ 120,00`}</Text>
+                <View style={styles.viewPriceCliente}>
+                  <Text style={styles.textItemPrice}>{travel.priceFormat}</Text>
                 </View>
               }
-            </View>
+            </TouchableOpacity>
           )
         })
       }

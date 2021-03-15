@@ -1,19 +1,19 @@
 import AsyncStorage from "@react-native-community/async-storage"
 
 export async function getDrivers () {
-  let userJson
+  let driverJson
   await AsyncStorage.getItem('driver')
     .then((drivers) => {
       if (drivers) {
-        userJson = JSON.parse(drivers)
+        driverJson = JSON.parse(drivers)
       } else {
-        userJson = []
+        driverJson = []
       }
     }).catch(() => {
-      userJson = []
+      driverJson = []
     })
 
-  return userJson
+  return driverJson
 }
 
 export async function saveNewDriver (driver) {
