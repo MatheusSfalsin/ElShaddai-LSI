@@ -12,9 +12,11 @@ import RecoveryPassword from './pages/RecoveryPassword'
 import HomeClient from './pages/HomeClient'
 import HomeEmployees from './pages/HomeEmployees'
 import CreateBus from './pages/CreateBus'
-import Travels from './pages/Travels'
 import CreateDriver from './pages/CreateDriver';
 import CreateTravel from './pages/CreateTravel';
+import Travels from './pages/Travels'
+import Seats from './pages/Seats'
+import BuyPassage from './pages/BuyPassage'
 
 
 export default function Routes () {
@@ -31,6 +33,8 @@ export default function Routes () {
         <appStack.Screen name="CreateBus" component={CreateBus} />
         <appStack.Screen name="CreateDriver" component={CreateDriver} />
         <appStack.Screen name="Travels" component={Travels} />
+        <appStack.Screen name="Seats" component={Seats} />
+        <appStack.Screen name="BuyPassage" component={BuyPassage} />
       </appStack.Navigator>
     </NavigationContainer>
   )

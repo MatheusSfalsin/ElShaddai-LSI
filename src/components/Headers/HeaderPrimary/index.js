@@ -4,7 +4,7 @@ import { View, StyleSheet, Text, TouchableOpacity, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { Colors } from '../../../utils/colors';
 import { logOutUser } from '../../../config/data';
-// import { Container } from './styles';
+import { styles } from './styles';
 
 const HeaderPrimary = ({
   withLogOut,
@@ -69,41 +69,5 @@ const HeaderPrimary = ({
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    // flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 14,
-  },
-  logo: {
-    color: Colors.primary,
-    fontWeight: 'bold',
-    fontSize: 24,
-    // lineHeight: 20,
-    letterSpacing: -1.5
-  },
-  textLogOut: {
-    color: Colors.white,
-    fontWeight: 'bold',
-    fontSize: 16,
-    // marginLeft: 8,
-  },
-  leftAbsolute: {
-    position: 'absolute',
-    left: 10,
-    top: 10,
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  buttonLogOut: {
-    paddingVertical: 8,
-    paddingHorizontal: 20,
-    borderRadius: 4,
-    backgroundColor: Colors.primary,
-  }
-})
 
 export default HeaderPrimary;

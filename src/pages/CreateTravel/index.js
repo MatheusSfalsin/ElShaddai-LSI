@@ -76,7 +76,8 @@ const CreateTravel = ({ navigation }) => {
       timeDestiny,
       driver: completeDriver,
       bus: completeBus,
-      markedSeats: []
+      markedSeats: [],
+      status: 'WAITING'
     }
 
     saveNewTravel(travel)

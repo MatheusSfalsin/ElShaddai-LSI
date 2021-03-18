@@ -29,6 +29,10 @@ const HomeClient = ({ navigation }) => {
 
   }
 
+  const handlePressInTravel = (travel) => {
+    navigation.push('Seats', { travel })
+  }
+
   return (
     <ScrollView
       style={styles.container}
@@ -103,7 +107,7 @@ const HomeClient = ({ navigation }) => {
         </Text>
 
       </View>
-      <ListTravels />
+      <ListTravels onPressInTravel={handlePressInTravel} />
     </ScrollView>
   );
 }

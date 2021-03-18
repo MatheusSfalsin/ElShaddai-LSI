@@ -1,6 +1,7 @@
 import { CommonActions } from '@react-navigation/native';
 import React, { useState, useEffect } from 'react';
 import { FlatList, Text, TouchableOpacity, View } from 'react-native';
+import moment from 'moment'
 import ButtonPrimaryWithIcon from '../../components/Buttons/ButtonPrimaryWithIcon';
 import HeaderPrimary from '../../components/Headers/HeaderPrimary';
 import InputWithICon from '../../components/Inputs/InputWithICon';
@@ -8,6 +9,7 @@ import LabelAndLine from '../../components/Labels/LabelAndLine';
 import { getTravels } from '../../data/travel';
 import { Colors } from '../../utils/colors';
 import FormatValueMoney from '../../utils/formatValueMoney';
+import { getStatusTravel } from '../../utils/values';
 
 import { styles } from './styles';
 
@@ -16,7 +18,9 @@ const ListTravels = ({
   situation,
   isClient = true,
   onPressInTravel = () => { },
-  idTravelSelected = ''
+  travelSelected = '',
+  goToSinister,
+  updatedList
 }) => {
   const [travels, setTravels] = useState([])
 
@@ -35,30 +39,29 @@ const ListTravels = ({
     }
 
     getData()
-  }, [])
+  }, [updatedList])
 
   return (
-    // <View style={styles.container}>
-    //   <HeaderPrimary withBackground />
-    //   <Text style={styles.TitleHome}>Compre sua passagem</Text>
-    //   <View style={{ flex: 1, alignItems: 'center' }}>
-    //     <View style={styles.viewInputs}>
-
-    //     </View>
-    //   </View>
-    // </View>
-    <>
+    <View style={styles.contentList}>
       {
         travels.map((travel, index) => {
-          const selected = travel.id === idTravelSelected
+          const selected = travel.id === travelSelected.id
+          const statusTravel = getStatusTravel(travel.status)
+          const { date } = travel
+          const formatDate = `${date.slice(6)}-${date.slice(3, 5)}-${date.slice(0, 2)}`
+          const today = moment(formatDate).format('DD/MM/YYYY')
           return (
             <TouchableOpacity
               key={index}
               activeOpacity={0.7}
-              onPress={() => onPressInTravel(travel.id)}
+              onPress={() => onPressInTravel(travel)}
               style={[styles.contentTravel, selected && { backgroundColor: Colors.condensed }]}
             >
               <View style={{ flex: 1 }}>
+                <Text style={styles.textItemDateTravel} numberOfLines={1}>
+                  {today}
+                </Text>
+
                 <Text style={styles.textItemTravel} numberOfLines={1}>
                   {`Saída: ${travel.timeOrigin} - ${travel.origin}`}
                 </Text>
@@ -89,9 +92,9 @@ const ListTravels = ({
                 </View>
 
                 {
-                  !!situation &&
+                  !isClient &&
                   <Text style={styles.textSituation} numberOfLines={1}>
-                    {`Em Andamento`}
+                    {statusTravel}
                   </Text>
                 }
 
@@ -106,15 +109,7 @@ const ListTravels = ({
           )
         })
       }
-    </>
-    // <FlatList
-    //   data={}
-    //   renderItem={() => {
-    //     return (
-
-    //     )
-    //   }}
-    // />
+    </View>
   );
 }
 

@@ -6,6 +6,10 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.screen
   },
+  contentList: {
+    marginBottom: 50,
+    width: '100%'
+  },
   contentTravel: {
     flex: 1,
     marginHorizontal: 12,
@@ -23,6 +27,13 @@ export const styles = StyleSheet.create({
     borderColor: Colors.condensed,
     marginLeft: 12,
     justifyContent: 'center'
+  },
+  textItemDateTravel: {
+    color: Colors.gray2,
+    fontSize: 15,
+    fontWeight: 'bold',
+    paddingVertical: 2,
+
   },
   textItemTravel: {
     color: Colors.gray2,

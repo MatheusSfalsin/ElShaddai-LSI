@@ -53,7 +53,7 @@ const HomeEmployees = ({ navigation }) => {
 
           <ButtonPrimary
             label="Viagens"
-            onPress={() => navigation.push('Travels', { isMenager })}
+            onPress={() => navigation.push('Travels', { isMenager, user })}
             styleAdd={{ marginTop: 6 }}
           />
 

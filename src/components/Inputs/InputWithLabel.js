@@ -48,6 +48,7 @@ const InputWithLabel = ({
             maxLength={maxLength}
             onChangeText={value => onChangeText(value)}
             value={valueInput}
+          // multiline={true}
           />
       }
 
