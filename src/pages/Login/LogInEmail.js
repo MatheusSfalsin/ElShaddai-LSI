@@ -87,12 +87,9 @@ export class LogInEmail extends Component {
         style={styles.container}
       >
         <View style={[styles.ContainerHeader]} >
-          {/* <TouchableOpacity onPress={this.props.goBack} style={styles.iconBack}>
-            <Icon name="arrow-left" size={24} color="#828282" />
-          </TouchableOpacity> */}
-          {/* <View style={[styles.logoContainer]} >
-            <Image style={styles.imgLogo} source={this.images} />
-          </View> */}
+          <View style={[styles.logoContainer]} >
+            <Text style={styles.logo}>El Shaddai</Text>
+          </View>
         </View>
 
         <View style={[

@@ -1,3 +1,4 @@
+import { CommonActions } from '@react-navigation/native';;
 import React, { useState } from 'react';
 import { Alert, ScrollView, View } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
@@ -6,27 +7,43 @@ import HeaderPrimary from '../../components/Headers/HeaderPrimary';
 import InputWithLabel from '../../components/Inputs/InputWithLabel';
 import LabelAndLine from '../../components/Labels/LabelAndLine';
 import { getBuses, saveNewBus } from '../../data/bus'
+import { updateSeatsMarked } from '../../data/travel';
+import formatValue from '../../utils/formatValueMoney';
 
 import { styles } from './styles';
 
 const BuyPassage = ({ navigation, route }) => {
-  const { armchair = [] } = route.params;
+  const { armchairs = [], travel, user = {}, refreshTravel } = route.params;
 
-  const [model, setModel] = useState('')
-  const [numberSeats, setNumberSeats] = useState('')
-  const [plate, setPlate] = useState('')
-  const [year, setYear] = useState('')
+  const { price } = travel
+  const amountSeats = armchairs.length
 
-  const handleCreateBus = () => {
-    if (!(model && numberSeats && plate && year)) {
+  const [numberCard, setNumberCard] = useState('')
+  const [name, setName] = useState('')
+  const [validity, setValidity] = useState('')
+  const [cvv, setCvv] = useState('')
+
+  const handleBuyPassage = () => {
+    if (!(numberCard && name && validity && cvv)) {
       Alert.alert('Campos não preenchidos', 'Preencha todos dados...')
       return
     }
 
-    const id = Math.random().toString(36).substr(2, 9);
-    const bus = { id, model, numberSeats, plate, year }
-    saveNewBus(bus)
-    navigation.goBack()
+    updateSeatsMarked(travel, armchairs)
+
+    const screenClient = user.type ? 'HomeEmployees' : 'HomeClient'
+    refreshTravel()
+
+    Alert.alert('Compra concluída', 'Suas passagens foram cofirmadas...')
+
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 1,
+        routes: [
+          { name: screenClient },
+        ],
+      })
+    );
   }
 
   return (
@@ -36,67 +53,78 @@ const BuyPassage = ({ navigation, route }) => {
         <LabelAndLine
           styleContainer={{ marginTop: 10 }}
           styleText={{ textAlign: 'center' }}
-          text={"Compre sua passagem\nCartão"}
+          text={
+            `Compre sua passagem\n${amountSeats}x ${formatValue(price)}`
+          }
         />
 
         <View style={styles.form}>
           <InputWithLabel
-            placeholder="Ex: Mercedes"
+            placeholder="0000 0000 0000 0000"
+            hasMaskInput
+            typeMask="custom"
+            optionsMask={{
+              mask: '9999 9999 9999 9999'
+            }}
             placeholderTextColor={Colors.gray}
-            onChangeText={(text) => setModel(text)}
+            onChangeText={(text) => setNumberCard(text)}
             styleInput={{ fontSize: 16 }}
-            label="Modelo"
-            valueInput={model}
+            keyboardType="numeric"
+            label="Número do cartão"
+            valueInput={numberCard}
           />
 
           <InputWithLabel
-            placeholder="Ex: 48"
+            placeholder="EX: LUCAS SILVA"
             placeholderTextColor={Colors.gray}
-            onChangeText={(text) => setNumberSeats(Number(text))}
+            onChangeText={(text) => setName(text)}
             styleInput={{ fontSize: 16 }}
-            maxLength={3}
-            keyboardType="numeric"
-            label="Nº Assentos"
-            valueInput={numberSeats}
+            autoCapitalize="characters"
+            label="Nome do Titular"
+            valueInput={name}
           />
 
           <View style={styles.inputInRow}>
             <InputWithLabel
-              placeholder="Ex: AAA-0000"
+              placeholder="00/00"
               hasMaskInput
               typeMask="custom"
               optionsMask={{
-                mask: 'AAA-9999'
+                mask: '99/99'
               }}
               placeholderTextColor={Colors.gray}
-              onChangeText={(text) => setPlate(text)}
+              onChangeText={(text) => setValidity(text)}
               autoCapitalize="characters"
               styleInput={{ fontSize: 16, }}
               styleContainer={{ marginRight: 10, }}
-              maxLength={8}
-              label="Placa"
-              valueInput={plate}
+              maxLength={5}
+              keyboardType="numeric"
+              label="Validade"
+              valueInput={validity}
             />
 
             <InputWithLabel
-              placeholder="Ex: 2014"
+              placeholder="000"
               placeholderTextColor={Colors.gray}
-              onChangeText={(text) => setYear(text)}
+              onChangeText={(text) => setCvv(text)}
               styleInput={{ fontSize: 16 }}
               styleContainer={{ marginLeft: 10 }}
               keyboardType="numeric"
-              maxLength={4}
-              label="Ano"
-              valueInput={year}
+              maxLength={3}
+              label="CVV"
+              valueInput={cvv}
             />
           </View>
 
           <View style={styles.buttonPrimary}>
             <ButtonPrimaryWithIcon
-              activeOpacity={0.8}
-              label="Cadastrar ônibus"
+              nameIcon="shopping-cart"
+              sizeIcon={18}
               colorIcon={Colors.white}
-              onPress={() => handleCreateBus()}
+              activeOpacity={0.8}
+              label={`Comprar (${formatValue(amountSeats * price)})`}
+              colorIcon={Colors.white}
+              onPress={() => handleBuyPassage()}
             />
           </View>
         </View>

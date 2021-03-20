@@ -2,13 +2,7 @@ import { Dimensions, Platform, StyleSheet } from 'react-native'
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 const { width, height } = Dimensions.get('window')
-/*
- * While using SafeAreaView, the iOS statusBar is already handled
- * and defined to 0 in metrics. If the SafeAreaView get removed,
- * use 20 for standard portrait iPhone statusBar and 44 for
- * portrait iPhoneX kin. Landscape are still to be defined, thats
- * one of the whys we are using SafeAreaView
- */
+
 const statusBarHeight = getStatusBarHeight()
 const navBarDataHeight = Platform.OS === 'ios' ? 44 : 56
 const navBarHeight = statusBarHeight + navBarDataHeight

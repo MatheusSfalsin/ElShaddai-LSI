@@ -3,7 +3,6 @@ import { Colors } from "../../../utils/colors";
 
 export const styles = StyleSheet.create({
   container: {
-    // flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -13,14 +12,12 @@ export const styles = StyleSheet.create({
     color: Colors.primary,
     fontWeight: 'bold',
     fontSize: 24,
-    // lineHeight: 20,
     letterSpacing: -1.5
   },
   textLogOut: {
     color: Colors.white,
     fontWeight: 'bold',
     fontSize: 16,
-    // marginLeft: 8,
   },
   leftAbsolute: {
     position: 'absolute',

@@ -9,25 +9,27 @@ import LabelAndLine from '../../components/Labels/LabelAndLine';
 import { getTravels } from '../../data/travel';
 import { Colors } from '../../utils/colors';
 import FormatValueMoney from '../../utils/formatValueMoney';
-import { getStatusTravel } from '../../utils/values';
+import { getStatusColor, getStatusTravel } from '../../utils/values';
 
 import { styles } from './styles';
 
 const ListTravels = ({
-  navigation,
-  situation,
   isClient = true,
   onPressInTravel = () => { },
   travelSelected = '',
-  goToSinister,
-  updatedList
+  updatedList,
+  filterTravels = () => (true),
+  alreadySearch = true
 }) => {
   const [travels, setTravels] = useState([])
 
   useEffect(() => {
     async function getData () {
       const travels = await getTravels()
-      const formTravels = travels.map(travel => {
+      const travelsFilter = travels.filter(travel => {
+        return filterTravels(travel)
+      })
+      const formTravels = travelsFilter.map(travel => {
         const { markedSeats = [], price = 0 } = travel
         return {
           ...travel,
@@ -47,15 +49,21 @@ const ListTravels = ({
         travels.map((travel, index) => {
           const selected = travel.id === travelSelected.id
           const statusTravel = getStatusTravel(travel.status)
+          const statusColor = getStatusColor(travel.status)
           const { date } = travel
           const formatDate = `${date.slice(6)}-${date.slice(3, 5)}-${date.slice(0, 2)}`
           const today = moment(formatDate).format('DD/MM/YYYY')
+
           return (
             <TouchableOpacity
               key={index}
               activeOpacity={0.7}
               onPress={() => onPressInTravel(travel)}
-              style={[styles.contentTravel, selected && { backgroundColor: Colors.condensed }]}
+              style={[
+                styles.contentTravel,
+                selected && { backgroundColor: Colors.condensed },
+                { borderColor: statusColor }
+              ]}
             >
               <View style={{ flex: 1 }}>
                 <Text style={styles.textItemDateTravel} numberOfLines={1}>
@@ -108,6 +116,13 @@ const ListTravels = ({
             </TouchableOpacity>
           )
         })
+      }
+
+      {
+        (travels.length === 0 && alreadySearch) &&
+        <Text style={{ color: Colors.description, textAlign: 'center', marginTop: 15 }}>
+          Sem viagens no momemento...
+        </Text>
       }
     </View>
   );

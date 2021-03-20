@@ -91,8 +91,6 @@ const CreateTravel = ({ navigation }) => {
     setDriver('')
     setBus('')
     Alert.alert('Viagem criada', 'Viagem criada, clique ok para continuar...')
-    // console.log()
-    // navigation.goBack()
   }
 
   return (
@@ -215,7 +213,7 @@ const CreateTravel = ({ navigation }) => {
           <View style={styles.buttonPrimary}>
             <ButtonPrimaryWithIcon
               activeOpacity={0.8}
-              label="Cadastrar ônibus"
+              label="Criar viagem"
               colorIcon={Colors.white}
               onPress={() => handleCreateTravel()}
             />

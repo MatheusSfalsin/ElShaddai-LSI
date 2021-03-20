@@ -35,6 +35,27 @@ export async function updateStatus (travel, status) {
   }
 }
 
+export async function updateSeatsMarked (travel, marked) {
+  try {
+    const { markedSeats } = travel
+    const markedSeatsUpdated = [...markedSeats, ...marked]
+    const travels = await getTravels()
+    const travelsUpdate = travels.map(travelSaved => {
+      if (travelSaved.id === travel.id) {
+        return { ...travelSaved, markedSeats: markedSeatsUpdated }
+      }
+      return travelSaved
+    })
+
+    await AsyncStorage.setItem(
+      'travel',
+      JSON.stringify(travelsUpdate)
+    )
+  } catch (err) {
+    throw err
+  }
+}
+
 
 export async function saveNewTravel (travel) {
   try {

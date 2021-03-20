@@ -24,5 +24,6 @@ export const styles = StyleSheet.create({
   buttonPrimary: {
     marginTop: 30,
     width: '100%',
+    maxWidth: 340,
   },
 })

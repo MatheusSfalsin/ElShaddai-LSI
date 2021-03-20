@@ -61,7 +61,7 @@ const HomeEmployees = ({ navigation }) => {
             isMenager &&
             <ButtonPrimary
               label="Relatórios"
-              onPress={() => { }}
+              onPress={() => navigation.push('Report')}
               styleAdd={{ marginTop: 6 }}
             />
           }

@@ -6,12 +6,13 @@ import volante from '../../assets/volante.png';
 
 import { styles } from './styles';
 
-const Seats = ({ navigation }) => {
+const Seats = ({ navigation, route }) => {
   const [seatsSelect, setSeatsSelect] = useState([])
+  const { travel, user, refreshTravel = () => { } } = route.params;
+  const { markedSeats } = travel
 
   const handleSelectArmchair = (armchairId) => {
     const existMarkchair = seatsSelect.findIndex(select => select === armchairId)
-
     if (existMarkchair === -1) {
       setSeatsSelect([...seatsSelect, armchairId])
     } else {
@@ -31,7 +32,8 @@ const Seats = ({ navigation }) => {
       </View>
     </View>
   )
-  const renderArmchairs = (markedSeats = [5, 6, 25, 28]) => {
+
+  const renderArmchairs = (markedSeats) => {
     const armchairs = []
     // const row = []
     const numberRows = 48 / 4
@@ -115,13 +117,20 @@ const Seats = ({ navigation }) => {
               backgroundColor: Colors.primary,
               borderRadius: 4,
             }}
-            onPress={() => navigation.push('BuyPassage', { armchair: seatsSelect })}
+            onPress={() => {
+              navigation.push('BuyPassage', {
+                armchairs: seatsSelect,
+                travel,
+                user,
+                refreshTravel
+              })
+            }}
           >
             <Text style={{ color: Colors.white, fontWeight: 'bold', fontSize: 16 }}>Confirmar</Text>
           </TouchableOpacity>
         </View>
 
-        {renderArmchairs()}
+        {renderArmchairs(markedSeats)}
       </ScrollView>
     </View>
   )

@@ -62,12 +62,6 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  imgLogo: {
-    height: 48,
-    width: 48,
-    resizeMode: 'contain',
-  },
-
   TitleLogin: {
     fontSize: 22,
     color: Colors.gray2,
@@ -91,13 +85,6 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     color: Colors.description,
     width: 340,
-  },
-  textAlertUserValidation: {
-    marginTop: 10,
-    lineHeight: 14,
-    fontSize: 10,
-    color: Colors.gray,
-    width: 280,
   },
   ContainerInput: {
     flexDirection: 'row',
@@ -190,15 +177,6 @@ export const styles = StyleSheet.create({
     // alignItems: 'center'
   },
 
-  secondBottom: {
-    width: '100%',
-    height: 52,
-    minWidth: 320,
-    maxWidth: 340,
-    borderRadius: 30,
-    justifyContent: 'center',
-  },
-
   bottomScreen: {
     // position: 'absolute',
     // bottom: 0,
@@ -206,58 +184,5 @@ export const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-
-  boldText: {
-    fontWeight: 'bold',
-    color: Colors.gray2,
-    lineHeight: 23,
-    fontSize: 16,
-  },
-
-  buttonTextInLine: {
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    flexDirection: 'row',
-    marginLeft: 30,
-    marginTop: 25,
-  },
-  buttonNotCep: {
-    marginTop: 20,
-  },
-  textButtonNotCep: {
-    fontSize: 14,
-    lineHeight: 16,
-    fontWeight: 'bold',
-    color: Colors.primary,
-  },
-  CheckBoxBorder: {
-    borderBottomColor: Colors.gray6,
-    borderBottomWidth: 1,
-  },
-  viewInputCheckBox: {
-    marginTop: 20,
-    width: 300,
-    display: 'flex',
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingBottom: 5,
-  },
-  textInputCheckBox: {
-    fontSize: 18,
-    lineHeight: 20,
-    // fontWeight: 'bold',
-    color: Colors.gray2,
-  },
-  textInputGener: {
-    fontSize: 18,
-    lineHeight: 20,
-    // fontWeight: 'bold',
-    color: Colors.primary,
-    width: 290,
-  },
-  viewOptionInteresers: {
-    paddingHorizontal: 20,
   }
 })

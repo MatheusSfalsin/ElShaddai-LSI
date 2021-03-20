@@ -3,28 +3,15 @@ import { Colors } from '../../../utils/colors'
 import { Metrics } from '../../../utils/metrics'
 
 const {
-  GreenGradient,
-  blackPrimaryAlt,
   buttonText,
-  facebookColor,
-  googleColor,
   primary,
-  special,
-  white,
-  blackDisabledAlt2,
-  condensed,
 } = Colors
 
 const {
-  borderWidth,
-  buttonHeightDense,
   buttonHeightStandard,
-  buttonHeightStandardPlus,
   largeSpacing,
   smallSpacing,
   standardSpacing,
-  tinySpacing,
-  xxsSpacing,
 } = Metrics
 
 export const styles = StyleSheet.create({
@@ -35,7 +22,6 @@ export const styles = StyleSheet.create({
     paddingHorizontal: standardSpacing,
   },
   container: {
-    // ...Values.elevation.e2,
     alignItems: 'center',
     borderRadius: 8,
     flexDirection: 'row',

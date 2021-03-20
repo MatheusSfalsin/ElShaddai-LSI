@@ -1,11 +1,15 @@
 import React from 'react';
 import { StyleSheet, TextInput, View } from 'react-native';
+import { TextInputMask } from 'react-native-masked-text';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { Colors } from '../../utils/colors';
 
 // import { Container } from './styles';
 
 const InputWithICon = ({
+  hasMaskInput,
+  optionsMask = {},
+  typeMask,
   placeholder,
   secureTextEntry,
   placeholderTextColor,
@@ -15,20 +19,36 @@ const InputWithICon = ({
   nameIcon,
   sizeIcon = 18,
   colorIcon,
-  styleInput = {}
+  styleInput = {},
+  valueInput,
+  keyboardType
 }) => {
   return (
     <View style={styles.container}>
       <Icon name={nameIcon} size={sizeIcon} color={colorIcon} />
-      <TextInput
-        style={[styles.input, styleInput]}
-        placeholderTextColor={placeholderTextColor}
-        placeholder={placeholder}
-        autoCapitalize={autoCapitalize}
-        secureTextEntry={secureTextEntry}
-        maxLength={maxLength}
-        onChangeText={value => onChangeText(value)}
-      />
+      {
+        hasMaskInput ?
+          <TextInputMask
+            type={typeMask}
+            placeholder={placeholder}
+            options={optionsMask}
+            value={valueInput}
+            onChangeText={value => onChangeText(value)}
+            style={[styles.input, styleInput]}
+            keyboardType={keyboardType}
+          />
+          :
+          <TextInput
+            style={[styles.input, styleInput]}
+            placeholderTextColor={placeholderTextColor}
+            placeholder={placeholder}
+            autoCapitalize={autoCapitalize}
+            secureTextEntry={secureTextEntry}
+            maxLength={maxLength}
+            onChangeText={value => onChangeText(value)}
+          />
+      }
+
     </View>
   )
 }

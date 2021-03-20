@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import HeaderPrimary from '../../components/Headers/HeaderPrimary';
 import LabelAndLine from '../../components/Labels/LabelAndLine';
 import RowInteraction from '../../components/RowInteraction';
@@ -21,8 +21,27 @@ const Travels = ({ navigation, route }) => {
     setUpdatedList(new Date().getTime())
   }
 
+  const alertAction = (
+    title = '',
+    subTitle = '',
+    onPressConfirm
+  ) => {
+    Alert.alert(
+      title,
+      subTitle,
+      [
+        {
+          text: "Cancelar",
+          onPress: () => { },
+          style: "cancel"
+        },
+        { text: "OK", onPress: () => onPressConfirm() }
+      ]
+    );
+  }
+
   const finishTravel = async () => {
-    await updateStatus(travelSelected, 'FINISHE')
+    await updateStatus(travelSelected, 'FINISHED')
     setUpdatedList(new Date().getTime())
   }
 
@@ -36,21 +55,20 @@ const Travels = ({ navigation, route }) => {
   // }
 
   const menagerPressTravel = (travel) => {
-    console.log(travel)
     setTravelSelected(travel)
   }
 
-  const goToSinister = () => {
-    navigation.push('Sinister', { travel: travelSelected, user })
+  const filterTravels = (travel) => {
+    return travel.status !== 'FINISHED' && travel.status !== 'CANCELED'
   }
 
   return (
     <View style={styles.container}>
       <HeaderPrimary withBackground withGoBack />
       <RowInteraction
-        onPressStart={() => statarTravel()}
-        onPressFinish={() => finishTravel()}
-        onPressCancel={() => cancelTravel()}
+        onPressStart={() => alertAction('Começar viagem', 'Deseja iniciar viagem?', statarTravel)}
+        onPressFinish={() => alertAction('Concluir viagem', 'Deseja concluir viagem?', finishTravel)}
+        onPressCancel={() => alertAction('Cancelar viagem', 'Deseja cancelar viagem?', cancelTravel)}
         onPressRegisterSinister={() => { }}
       />
       <ScrollView >
@@ -60,11 +78,9 @@ const Travels = ({ navigation, route }) => {
             text={`Todas Viagens`}
           />
 
-
-
           <ListTravels
             isClient={false}
-            goToSinister={goToSinister}
+            filterTravels={filterTravels}
             travelSelected={travelSelected}
             onPressInTravel={menagerPressTravel}
             updatedList={updatedList}

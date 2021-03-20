@@ -17,7 +17,7 @@ import CreateTravel from './pages/CreateTravel';
 import Travels from './pages/Travels'
 import Seats from './pages/Seats'
 import BuyPassage from './pages/BuyPassage'
-
+import Report from './pages/Report'
 
 export default function Routes () {
   return (// tem que vir por volta das rotas
@@ -35,6 +35,7 @@ export default function Routes () {
         <appStack.Screen name="Travels" component={Travels} />
         <appStack.Screen name="Seats" component={Seats} />
         <appStack.Screen name="BuyPassage" component={BuyPassage} />
+        <appStack.Screen name="Report" component={Report} />
       </appStack.Navigator>
     </NavigationContainer>
   )

@@ -34,15 +34,6 @@ const RowInteraction = ({
       >
         <Text style={styles.textButton}>Cancelar</Text>
       </TouchableOpacity>
-
-      <TouchableOpacity
-        onPress={() => onPressRegisterSinister()}
-        activeOpacity={0.7}
-        style={styles.buttonInteraction}
-      >
-        <Text style={styles.textButton}>Sinistro</Text>
-      </TouchableOpacity>
-
     </View>
   )
 }
